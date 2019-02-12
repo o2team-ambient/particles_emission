@@ -48,14 +48,13 @@ class ParticlesEmmision {
   setup(p) {
     const { width, height, options } = this
     this.myCanvas = p.createCanvas(width, height)
-    p.background(255, 255, 255, 10)
     this.myCanvas.canvas.style = `pointer-events: none; position:fixed; top:0; left:50%; transform: translateX(-50%); width: ${width}px; height: ${height}px; z-index: -1`
   }
 
   draw(p) {
     const { options, width, height } = this
     const shadow = 'rgba(255, 255, 255,' + (1 - options.Shadow) + ')'
-    p.background(shadow)
+    this.myCanvas.drawingContext.clearRect(0, 0, width * 2, height * 2)
 
     p.translate(width / 2, height / 2)
 

@@ -34,7 +34,6 @@ let controlInit = () => {
       this.controls = {}
       this.initBaseGUI()
       this.initAdvancedGUI()
-      this.isShowController && !this.isAmbientPlat && this.setBackgroundColor(this.otherConfig.backgroundColor)
     }
 
     initBaseGUI () {
@@ -44,8 +43,12 @@ let controlInit = () => {
       config.random = () => {
         this.randomData()
       }
+      this.isShowController && !this.isAmbientPlat && gui.addColor(otherConfig, 'backgroundColor').name('背景色(仅演示)').onFinishChange(val => {
+        this.setBackgroundColor(val)
+      })
       gui.add(otherConfig, 'message').name('配置面板')
       gui.add(otherConfig, 'play').name('播放 / 暂停')
+      gui.add(config, 'random').name('随机配置')
       gui.add(config, 'Width').name('粒子散播宽度').onFinishChange(val => {
         window[O2_AMBIENT_MAIN].update(config)
       })
@@ -68,7 +71,6 @@ let controlInit = () => {
       gui.add(config, 'time').step(1).name('运行时间（0为无限制）').onFinishChange(val => {
         window[O2_AMBIENT_MAIN].update(config)
       })
-      gui.add(config, 'random').name('随机配置')
       this.gui = gui
       this.setGUIzIndex(2)
     }
