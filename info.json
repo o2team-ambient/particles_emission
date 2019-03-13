@@ -1,6 +1,7 @@
 {
   "author": "liangwei",
   "demoUrl": "http://jdc.jd.com/demo/ambient/particles_emission/",
+  "miniDemoUrl": "http://jdc.jd.com/demo/ambient/particles_emission/index_demo.html",
   "title": "particles_emission",
   "ambName": "粒子呼吸",
   "github": "https://github.com/o2team-ambient/particles_emission",
