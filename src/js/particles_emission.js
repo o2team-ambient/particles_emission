@@ -167,6 +167,7 @@ class ParticlesEmmision {
   }
 
   update(newOptions) {
+    console.log(newOptions)
     this.options = newOptions
     let realWidth = document.documentElement.clientWidth
     let realHeight = document.documentElement.clientHeight

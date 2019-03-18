@@ -31,7 +31,11 @@ let controlInit = () => {
     constructor () {
       super()
       this.otherConfig = new OtherConfig()
+      this.otherConfig.random = () => {
+        this.randomData()
+      }
       this.controls = {}
+      // this.controls = window[O2_AMBIENT_CONFIG]
       this.initBaseGUI()
       this.initAdvancedGUI()
       this.isShowController && !this.isAmbientPlat && this.setBackgroundColor(this.otherConfig.backgroundColor)
@@ -42,15 +46,12 @@ let controlInit = () => {
       const otherConfig = this.otherConfig
       const gui = new dat.GUI()
       gui.addCallbackFunc(this.resetCanvas.bind(this))
-      config.random = () => {
-        this.randomData()
-      }
       this.isShowController && !this.isAmbientPlat && gui.addColor(otherConfig, 'backgroundColor').name('背景色(仅演示)').onFinishChange(val => {
         this.setBackgroundColor(val)
       })
       gui.add(otherConfig, 'message').name('配置面板')
       gui.add(otherConfig, 'play').name('播放 / 暂停')
-      gui.add(config, 'random').name('随机配置')
+      gui.add(otherConfig, 'random').name('随机配置')
       gui.add(config, 'Width').name('粒子散播宽度').onFinishChange(val => {
         window[O2_AMBIENT_MAIN].update(config)
       })

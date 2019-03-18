@@ -88,7 +88,7 @@ class Controller {
   }
 
   // 重置画布
-  resetCanvas () {
+  resetCanvas = () => {
     if (this.isAmbientPlat) {
       this.transferProcess()
       
