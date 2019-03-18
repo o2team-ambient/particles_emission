@@ -5,7 +5,7 @@
 
 import dat from '@o2team/ambient-dat.gui'
 import {
-  O2_AMBIENT_MAIN
+  O2_AMBIENT_MAIN, O2_AMBIENT_CONFIG
 } from './utils/const'
 import Controller from './utils/controller'
 import { getParameterByName, getRandom, getRandomArr } from './utils/util'
@@ -34,12 +34,14 @@ let controlInit = () => {
       this.controls = {}
       this.initBaseGUI()
       this.initAdvancedGUI()
+      this.isShowController && !this.isAmbientPlat && this.setBackgroundColor(this.otherConfig.backgroundColor)
     }
 
     initBaseGUI () {
       const config = this.config
       const otherConfig = this.otherConfig
       const gui = new dat.GUI()
+      gui.addCallbackFunc(this.resetCanvas.bind(this))
       config.random = () => {
         this.randomData()
       }
