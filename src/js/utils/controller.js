@@ -88,16 +88,16 @@ class Controller {
   }
 
   // 重置画布
-  resetCanvas (opts) {
+  resetCanvas () {
     if (this.isAmbientPlat) {
       this.transferProcess()
-
+      
       if (window[O2_AMBIENT_IS_CONFIG_RESET]) return
       window[O2_AMBIENT_IS_CONFIG_RESET] = true
 
       return
     }
-    window[O2_AMBIENT_MAIN] && window[O2_AMBIENT_MAIN].reset && typeof window[O2_AMBIENT_MAIN].reset === 'function' && window[O2_AMBIENT_MAIN].reset(opts)
+    window[O2_AMBIENT_MAIN] && window[O2_AMBIENT_MAIN].reset && typeof window[O2_AMBIENT_MAIN].reset === 'function' && window[O2_AMBIENT_MAIN].reset(window[O2_AMBIENT_CONFIG])
   }
 }
 
