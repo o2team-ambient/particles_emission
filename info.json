@@ -5,7 +5,7 @@
   "title": "particles_emission",
   "ambName": "粒子呼吸",
   "github": "https://github.com/o2team-ambient/particles_emission",
-  "demoSnippet": "<link href=\"//storage.jd.com/ambient/styles-particles_emission.css?t=1552895437000\" rel=\"stylesheet\"></link><!-- S 主体内容 -->\n  <div class=\"o2team_ambient_main\">\n    <canvas></canvas>\n  </div>\n  <!-- E 主体内容 --><script src=\"//storage.jd.com/ambient/bundle-particles_emission.js?t=1552895437000\"></script>",
-  "controlUrl": "//storage.jd.com/ambient/control-particles_emission.js?t=1552895437000",
-  "configUrl": "//storage.jd.com/ambient/config-particles_emission.js?t=1552895437000"
+  "demoSnippet": "<link href=\"//storage.jd.com/ambient/styles-particles_emission.css?t=1553691016000\" rel=\"stylesheet\"></link><!-- S 主体内容 -->\n  <div class=\"o2team_ambient_main\">\n    <canvas></canvas>\n  </div>\n  <!-- E 主体内容 --><script src=\"//storage.jd.com/ambient/bundle-particles_emission.js?t=1553691016000\"></script>",
+  "controlUrl": "//storage.jd.com/ambient/control-particles_emission.js?t=1553691016000",
+  "configUrl": "//storage.jd.com/ambient/config-particles_emission.js?t=1553691016000"
 }
