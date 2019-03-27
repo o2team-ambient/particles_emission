@@ -4,7 +4,7 @@ window[O2_AMBIENT_CONFIG] = {
   Height: 1120,
   Color1: '#9b6b82',
   Color2: '#acf02b',
-  Shadow: 0.64,
+  // Shadow: 0.64,
   Spacing: 29,
   Speed: 4.4,
   Points: 9,
@@ -13,7 +13,7 @@ window[O2_AMBIENT_CONFIG] = {
   maxSize: 16,
   minSize: 6,
   time: 0,
-  Shape: 'Line',
+  Shape: '线形',
   Text: '❤',
   Rotate: false
 }

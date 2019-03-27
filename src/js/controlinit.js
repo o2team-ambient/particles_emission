@@ -28,6 +28,11 @@ let controlInit = () => {
 
   // 主控制面板
   class Control extends Controller {
+    sizeFolder
+    colorFolder
+    shapeFolder
+    shapeText
+
     constructor () {
       super()
       this.otherConfig = new OtherConfig()
@@ -37,6 +42,10 @@ let controlInit = () => {
       this.controls = {}
       // this.controls = window[O2_AMBIENT_CONFIG]
       this.initBaseGUI()
+      this.initShapeGUI()
+      this.initColorGUI()
+      this.initMotionGUI()
+      this.initSizeGUI()
       this.initAdvancedGUI()
       this.isShowController && !this.isAmbientPlat && this.setBackgroundColor(this.otherConfig.backgroundColor)
     }
@@ -52,28 +61,6 @@ let controlInit = () => {
       gui.add(otherConfig, 'message').name('配置面板')
       gui.add(otherConfig, 'play').name('播放 / 暂停')
       gui.add(otherConfig, 'random').name('随机配置')
-      gui.add(config, 'Width').name('粒子散播宽度').onFinishChange(val => {
-        window[O2_AMBIENT_MAIN].update(config)
-      })
-      gui.add(config, 'Height').name('粒子散播高度').onFinishChange(val => {
-        window[O2_AMBIENT_MAIN].update(config)
-      })
-      this.controls['Color1'] = gui.addColor(config, 'Color1').name('粒子颜色1')
-      this.controls['Color2'] = gui.addColor(config, 'Color2').name('粒子颜色2')
-      this.controls['Speed'] = gui.add(config, 'Speed', 1, 10).name('粒子速度')
-      this.controls['Shadow'] = gui.add(config, 'Shadow', 0, 0.8).name('阴影范围')
-      this.controls['Spacing'] = gui.add(config, 'Spacing', 0, 200).name('粒子间距')
-      this.controls['Points'] = gui.add(config, 'Points', 1, 30).step(1).name('粒子数量').onFinishChange(val => {
-        window[O2_AMBIENT_MAIN].update(config)
-      })
-      this.controls['Emission'] = gui.add(config, 'Emission', 1, 20).name('辐射范围')
-      this.controls['Repeate'] = gui.add(config, 'Repeate', 1, 20).name('密度')
-      this.controls['maxSize'] = gui.add(config, 'maxSize', 10, 50).name('粒子最大尺寸')
-      this.controls['minSize'] = gui.add(config, 'minSize', 0, 10).name('粒子最小尺寸')
-      gui.add(config, 'Rotate').name('是否旋转')
-      gui.add(config, 'time').step(1).name('运行时间（0为无限制）').onFinishChange(val => {
-        window[O2_AMBIENT_MAIN].update(config)
-      })
       this.gui = gui
       this.setGUIzIndex(2)
     }
@@ -82,14 +69,99 @@ let controlInit = () => {
       this.gui.domElement.parentElement.style.zIndex = zIndex
     }
 
-    initAdvancedGUI () {
+    initShapeGUI () {
       const gui = this.gui
       const config = this.config
       const shapeFolder = gui.addFolder('粒子图案')
-      this.controls['Shape'] = shapeFolder.add(config, 'Shape', ['Text', 'Circle', 'Rectangle', 'Line', 'Diamond']).name('粒子图案')
-      shapeFolder.add(config, 'Text').name('粒子图案')
+      this.controls['Shape'] = shapeFolder
+        .add(config, 'Shape', ['文字', '圆形', '方形', '线形', '钻石形'])
+        .name('粒子图案')
+        .onChange((val) => {
+          this.resetCanvas()
+          if (val === '文字' && !this.shapeText) {
+            this.shapeText = this.shapeFolder.add(config, 'Text')
+              .name('粒子图案')
+              .onChange(this.resetCanvas.bind(this))
+          }
+          if (val !== '文字' && this.shapeText) {
+            this.shapeFolder.remove(this.shapeText)
+            this.shapeText = null
+          }
+        })
+      // this.shapeText = shapeFolder
+      //   .add(config, 'Text')
+      //   .name('粒子图案')
       shapeFolder.open()
       this.shapeFolder = shapeFolder
+    }
+
+    initColorGUI () {
+      this.colorFolder = this.gui.addFolder('粒子配色')
+      this.controls['Color1'] = this.colorFolder.addColor(this.config, 'Color1').name('中心粒子色')
+        .onChange(this.resetCanvas.bind(this))
+      this.controls['Color2'] = this.colorFolder.addColor(this.config, 'Color2').name('外围粒子色')
+        .onChange(this.resetCanvas.bind(this))
+      this.colorFolder.open()
+    }
+
+    initMotionGUI () {
+      this.motionFolder = this.gui.addFolder('粒子动态')
+      this.controls['Speed'] = this.motionFolder
+        .add(this.config, 'Speed', 1, 10)
+        .name('粒子速度')
+        .onChange(this.resetCanvas.bind(this))
+      // this.controls['Shadow'] = gui.add(config, 'Shadow', 0, 0.8).name('阴影范围')
+      this.controls['Spacing'] = this.motionFolder
+        .add(this.config, 'Spacing', 0, 200)
+        .name('粒子间距')
+        .onChange(this.resetCanvas.bind(this))
+      this.controls['Points'] = this.motionFolder
+        .add(this.config, 'Points', 1, 15)
+        .step(1)
+        .name('粒子层数')
+        .onChange(this.resetCanvas.bind(this))
+      this.controls['Emission'] = this.motionFolder
+        .add(this.config, 'Emission', 1, 20)
+        .name('同步程度')
+        .onChange(this.resetCanvas.bind(this))
+      this.controls['Repeate'] = this.motionFolder
+        .add(this.config, 'Repeate', 1, 20)
+        .name('密度')
+        .onChange(this.resetCanvas.bind(this))
+      this.controls['maxSize'] = this.motionFolder
+        .add(this.config, 'maxSize', 10, 50)
+        .name('粒子最大尺寸')
+        .onChange(this.resetCanvas.bind(this))
+      this.controls['minSize'] = this.motionFolder
+        .add(this.config, 'minSize', 0, 10)
+        .name('粒子最小尺寸')
+        .onChange(this.resetCanvas.bind(this))
+      this.motionFolder
+        .add(this.config, 'Rotate')
+        .name('是否旋转')
+        .onChange(this.resetCanvas.bind(this))
+      this.motionFolder.open()
+    }
+
+    initSizeGUI () {
+      this.sizeFolder = this.gui.addFolder('画布尺寸')
+      this.sizeFolder
+        .add(this.config, 'Width')
+        .name('宽度')
+        .onChange(this.resetCanvas.bind(this))
+      this.sizeFolder
+        .add(this.config, 'Height')
+        .name('高度')
+        .onChange(this.resetCanvas.bind(this))
+    }
+
+    initAdvancedGUI () {
+      this.gui
+        .add(this.config, 'time')
+        .step(1).name('持续时间（秒，0为无限制）', 0)
+        .onChange((val) => {
+          if (val === 0) this.resetCanvas()
+        })
     }
 
     randomData() {
@@ -97,7 +169,7 @@ let controlInit = () => {
       const Color1 = [getRandom(0, 255), getRandom(0, 255), getRandom(0, 255)]
       const Color2 = [getRandom(0, 255), getRandom(0, 255), getRandom(0, 255)]
       const Speed = getRandom(1, 10)
-      const Shadow = getRandom(0, 0.8)
+      // const Shadow = getRandom(0, 0.8)
       const Points = getRandom(2, 10)
       const Spacing = getRandom(0, 200)
       const Emission = getRandom(1, 20)
@@ -116,7 +188,7 @@ let controlInit = () => {
 
       controls['Speed'].setValue(Speed)
       controls['Points'].setValue(Points)
-      controls['Shadow'].setValue(Shadow)
+      // controls['Shadow'].setValue(Shadow)
       controls['Spacing'].setValue(Spacing)
       controls['Emission'].setValue(Emission)
       controls['Repeate'].setValue(Repeate)

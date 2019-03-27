@@ -1,8 +1,9 @@
 import p5 from 'p5'
+import ShapeConst from './shapeConst'
 
 class ParticlesEmmision {
   constructor(options = {}) {
-    this.options = options
+    this.options = Object.assign({}, options)
     this.stars = []
     let realWidth = document.documentElement.clientWidth
     let realHeight = document.documentElement.clientHeight
@@ -53,7 +54,7 @@ class ParticlesEmmision {
 
   draw(p) {
     const { options, width, height } = this
-    const shadow = 'rgba(255, 255, 255,' + (1 - options.Shadow) + ')'
+    // const shadow = 'rgba(255, 255, 255,' + (1 - options.Shadow) + ')'
     this.myCanvas.drawingContext.clearRect(0, 0, width * 2, height * 2)
 
     p.translate(width / 2, height / 2)
@@ -98,7 +99,7 @@ class ParticlesEmmision {
             p.image(img, -x, -y, r, r)
             p.image(img, x, -y, r, r)
           }
-          else if (options.Shape == 'Text') {
+          else if (options.Shape == ShapeConst[0]) {
             p.textSize(r)
             p.fill(between)
             options.Repeate = 1
@@ -108,7 +109,7 @@ class ParticlesEmmision {
             p.text(s, -x, -y)
             p.text(s, x, -y)
           }
-          else if (options.Shape == 'Circle') {
+          else if (options.Shape == ShapeConst[1]) {
             if (options.Repeate == 1) {
               options.Repeate += 3
             }
@@ -117,7 +118,7 @@ class ParticlesEmmision {
             p.noStroke()
             p.ellipse(x, y, r, r)
           }
-          else if (options.Shape == 'Rectangle') {
+          else if (options.Shape == ShapeConst[2]) {
             if (options.Repeate == 1) {
               options.Repeate += 3
             }
@@ -125,7 +126,7 @@ class ParticlesEmmision {
             p.noStroke()
             p.rect(x, y, r, r)
           }
-          else if (options.Shape == 'Line') {
+          else if (options.Shape == ShapeConst[3]) {
             if (options.Repeate == 1) {
               options.Repeate += 3
             }
@@ -133,7 +134,7 @@ class ParticlesEmmision {
             p.strokeWeight(r / 10)
             p.noFill()
             p.line(x, y, x + 2 * r * p.sin(angle), y + 2 * r * p.sin(angle))
-          } else if (options.Shape == 'Diamond') {
+          } else if (options.Shape == ShapeConst[4]) {
             if (options.Repeate == 1) {
               options.Repeate += 3
             }
@@ -166,9 +167,8 @@ class ParticlesEmmision {
     }
   }
 
-  update(newOptions) {
-    console.log(newOptions)
-    this.options = newOptions
+  reset(newOptions) {
+    this.options = Object.assign({}, newOptions)
     let realWidth = document.documentElement.clientWidth
     let realHeight = document.documentElement.clientHeight
     let canvasWidth = newOptions.Width
