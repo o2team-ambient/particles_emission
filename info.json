@@ -8,6 +8,7 @@
   "demoSnippet": "<link href=\"//storage.jd.com/ambient/styles-particles_emission.css?t=1553691016000\" rel=\"stylesheet\"></link><!-- S 主体内容 -->\n  <div class=\"o2team_ambient_main\">\n    <canvas></canvas>\n  </div>\n  <!-- E 主体内容 --><script src=\"//storage.jd.com/ambient/bundle-particles_emission.js?t=1553691016000\"></script>",
   "controlUrl": "//storage.jd.com/ambient/control-particles_emission.js?t=1553691016000",
   "configUrl": "//storage.jd.com/ambient/config-particles_emission.js?t=1553691016000",
-  "placeholderImg": "//storage.jd.com/ambient/particles_emission_placeholder.png?t=1553776233000",
-  "gifImg": "//storage.jd.com/ambient/particles_emission_motion.gif?t=1553776233000"
+  "placeholderImg": "//storage.jd.com/ambient/particles_emission_placeholder.png?t=1553852523000",
+  "gifImg": "//storage.jd.com/ambient/particles_emission_motion.gif?t=1553776233000",
+  "placeholderWebm": "//storage.jd.com/ambient/particles_emission_placeholder.webm?t=1553852523000"
 }
