@@ -1,3 +1,4 @@
+import './css/base.scss'
 import './css/package.scss'
 
 import { O2_AMBIENT_CONFIG } from './js/utils/const'

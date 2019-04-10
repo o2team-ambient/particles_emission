@@ -4,6 +4,36 @@
   (global.ATAmbient = factory());
 }(this, (function () { 'use strict';
 
+  function styleInject(css, ref) {
+    if ( ref === void 0 ) ref = {};
+    var insertAt = ref.insertAt;
+
+    if (!css || typeof document === 'undefined') { return; }
+
+    var head = document.head || document.getElementsByTagName('head')[0];
+    var style = document.createElement('style');
+    style.type = 'text/css';
+
+    if (insertAt === 'top') {
+      if (head.firstChild) {
+        head.insertBefore(style, head.firstChild);
+      } else {
+        head.appendChild(style);
+      }
+    } else {
+      head.appendChild(style);
+    }
+
+    if (style.styleSheet) {
+      style.styleSheet.cssText = css;
+    } else {
+      style.appendChild(document.createTextNode(css));
+    }
+  }
+
+  var css = "@charset \"UTF-8\";\n/* 自定义样式 */\n.o2team_ambient_main {\n  z-index: 999;\n  pointer-events: none; }\n";
+  styleInject(css);
+
   const id = 'particles_emission';
   const ID = id.toUpperCase();
   const O2_AMBIENT_MAIN = `O2_AMBIENT_${ID}_MAIN`;
