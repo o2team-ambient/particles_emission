@@ -1,11 +1,12 @@
 {
-  "name": "particles_emission",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@o2team/ambient-particles_emission",
+  "version": "1.0.1",
+  "description": "夸克动效库-粒子呼吸",
+  "main": "dist/index.min.js",
   "scripts": {
     "start": "am s",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "rollup -c && jnpm publish"
   },
   "author": "liangwei",
   "license": "ISC",
@@ -14,6 +15,18 @@
     "p5": "^0.6.1"
   },
   "devDependencies": {
-    "babel-runtime": "^6.26.0"
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/runtime": "^7.4.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "json-loader": "^0.5.7",
+    "rollup": "^1.8.0",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-commonjs": "^9.3.1",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^4.0.1",
+    "rollup-plugin-sass": "^1.2.2",
+    "rollup-plugin-style": "^0.1.0",
+    "rollup-plugin-uglify": "^6.0.2"
   }
 }
