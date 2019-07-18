@@ -49,7 +49,7 @@ class ParticlesEmmision {
   setup(p) {
     const { width, height, options } = this
     this.myCanvas = p.createCanvas(width, height)
-    this.myCanvas.canvas.style = `pointer-events: none; position:fixed; top:0; left:50%; transform: translateX(-50%); width: ${width}px; height: ${height}px; z-index: -1`
+    this.myCanvas.canvas.style = `pointer-events: none; position: fixed; top:0; left:50%; transform: translateX(-50%); width: ${width}px; height: ${height}px;`
   }
 
   draw(p) {
